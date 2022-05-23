@@ -17,11 +17,10 @@ public class PortalAutofacturacionApplication extends WebMvcConfigurationSupport
 	@Override
 	protected void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/static/**").addResourceLocations(ResourceUtils.CLASSPATH_URL_PREFIX + "/static/");
-		registry.addResourceHandler("/webjars/**").addResourceLocations("/webjars/").resourceChain(false);
-		registry.addResourceHandler("/js/**").addResourceLocations("/js/").resourceChain(false);
-		registry.addResourceHandler("/css/**").addResourceLocations("/css/").resourceChain(false);
+		registry.addResourceHandler("/webjars/**").addResourceLocations("/webjars/").resourceChain(true);
+		registry.addResourceHandler("/js/**").addResourceLocations("/js/").resourceChain(true);
+		registry.addResourceHandler("/css/**").addResourceLocations("/css/").resourceChain(true);
 		super.addResourceHandlers(registry);
-
 	}
 
 }
