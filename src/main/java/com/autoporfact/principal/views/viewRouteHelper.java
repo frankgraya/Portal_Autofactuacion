@@ -3,8 +3,6 @@ package com.autoporfact.principal.views;
 public class viewRouteHelper {
 
 
-    //home
-    public final static String PLANTILLA = "plantilla";
 
 
     //login
@@ -12,6 +10,10 @@ public class viewRouteHelper {
 
     //home
     public final static String HOME = "home";
+
+   // /views/ejemplo/listar
+    public final static String EJEMPLO_LISTAR = "/views/ejemplo/listar";
+
 
     //register
     public final static String REGISTER = "register";

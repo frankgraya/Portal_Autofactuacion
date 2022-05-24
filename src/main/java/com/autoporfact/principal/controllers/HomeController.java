@@ -13,7 +13,7 @@ import static com.autoporfact.principal.views.viewRouteHelper.HOME;
 public class HomeController {
 
     //    @Secured("ADMIN")
-    @GetMapping("/")
+    @GetMapping({"/index", "/home", "/"})
     public String index(Model model) {
         log.info("estas en el home controller");
         return HOME;
