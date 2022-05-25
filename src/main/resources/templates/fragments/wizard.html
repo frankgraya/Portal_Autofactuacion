@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml" lang="es" th:fragment="wizard">
+<head>
+	<meta charset="utf-8">
+	<title>Facturación Avalon</title>
+	<!-- Mobile Specific Metas -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<!-- Font-->
+	<link rel="stylesheet" type="text/css" th:href="@{/static/css/raleway-font.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/static/fonts/material-design-iconic-font/css/material-design-iconic-font.min.css}">
+	<!-- Jquery -->
+	<link rel="stylesheet" th:href="@{/static/css/site-demos.css}">
+	<!-- Main Style Css -->
+    <link rel="stylesheet" th:href="@{/static/css/style.css}"/>
+</head>
+<body >
+	<div class="page-content" style="background-image: url('/static/images/wizard-v1.jpg')">
+		<div class="wizard-v1-content">
+			<div class="wizard-form">
+		        <form class="form-register" id="form-register" action="#" method="post">
+		        	<div id="form-total">
+		        		<!-- SECTION 1 -->
+			            <h2>
+			            	<span class="step-icon"><i class="zmdi zmdi-account"></i></span>
+			            	<span class="step-number">Paso 1</span>
+			            	<span class="step-text">Información del ticket</span>
+			            </h2>
+			            <section>
+			                <div class="inner">
+								<div class="form-row">
+									<div class="form-holder form-holder-2">
+										<label for="username">Numero de Estación*</label>
+										<input type="text" placeholder="Numero de estación" class="form-control" id="username" name="username" required>
+									</div>
+								</div>
+								<div class="form-row">
+									<div class="form-holder form-holder-2">
+										<label for="email">Folio ticket*</label>
+										<input type="text" placeholder="Folio ticket" class="form-control" id="email" name="email" required >
+									</div>
+								</div>							
+								<div class="form-row">
+									<div class="form-holder">
+										<label for="passwordx">Fecha del ticket*</label>
+										<input type="text" placeholder="Fecha del ticket" class="form-control" id="password" name="password" required >
+									</div>
+									<div class="form-holder">
+										<label for="confirm_passwordx">Folio WEB*</label>
+										<input type="text" placeholder="Folio WEB" class="form-control" id="confirm_passwordx" name="confirm_passwordx" required>
+									</div>
+								</div>
+							</div>
+			            </section>
+						<!-- SECTION 2 -->
+			            <h2>
+			            	<span class="step-icon"><i class="zmdi zmdi-card"></i></span>
+			            	<span class="step-number">Paso 2</span>
+			            	<span class="step-text">Información de facturación</span>
+			            </h2>
+			            <section>
+			                <div class="inner">
+								<div class="form-row">
+									<div class="form-holder form-holder-2">
+										<label for="card-type">Uso del CFDI</label>
+										<select name="card-type" id="card-type" class="form-control">
+											<option value="" disabled selected>Selecciona uso del CFDI</option>
+											<option value="Gasto General">Gasto general</option>											
+										</select>
+									</div>
+								</div>
+								<div class="form-row">
+									<div class="form-holder form-holder-3">
+										<label for="card-number">RFC</label>
+										<input type="text" name="card-number" class="card-number" id="card-number" placeholder="RFC">
+									</div>
+									<div class="form-holder">
+										<label for="cvc">Razón social </label>
+										<input type="text" name="cvc" class="cvc" id="cvc" placeholder="Forma de Pago">
+									</div>
+									
+								</div>
+								<div class="form-row">
+									<div class="form-holder">
+										<label for="cvcx">Forma de pago </label>
+										<input type="text" name="cvcx" value="Efectivo" class="cvcx" id="cvcx" placeholder="Forma de Pago" disabled>
+									</div>
+									<div class="form-holder form-holder-2">
+										<label for="emailx">Email*</label>
+										<input type="email" placeholder="Email" class="form-control" id="emailx" name="emailx" required pattern="[^@]+@[^@]+.[a-zA-Z]{2,6}">
+									</div>
+									
+								</div>
+								
+								
+							</div>
+			            </section>
+			            <!-- SECTION 3 -->
+			            <h2>
+			            	<span class="step-icon"><i class="zmdi zmdi-receipt"></i></span>
+			            	<span class="step-number">Step 3</span>
+			            	<span class="step-text">Detalle de confirmación</span>
+			            </h2>
+			            <section>
+			                <div class="inner">
+			                	<h3>Comfirm Details</h3>
+								<div class="form-row table-responsive">
+									<table class="table">
+										<tbody>
+											<tr class="space-row">
+												<th>Numero de Estación:</th>
+												<td id="username-val"></td>
+											</tr>
+											<tr class="space-row">
+												<th>Folio ticket:</th>
+												<td id="email-val"></td>
+											</tr>
+											<tr class="space-row">
+												<th>Uso del CFDI:</th>
+												<td id="card-type-val"></td>
+											</tr>
+											<tr class="space-row">
+												<th>RFC:</th>
+												<td id="card-number-val"></td>
+											</tr>
+											<tr class="space-row">
+												<th>Razón social:</th>
+												<td id="cvc-val"></td>
+											</tr>
+											<tr class="space-row">
+												<th>Forma de pago:</th>
+												<td id="cvcx-val">Efectivo</td>
+											</tr>
+											<tr class="space-row">
+												<th>Email:</th>
+												<td id="emailx-val">publico@avaloninformatica.com</td>
+											</tr>
+												
+										</tbody>
+									</table>
+								</div>
+							</div>
+			            </section>
+		        	</div>
+		        </form>
+			</div>
+		</div>
+	</div>
+	<script th:src="@{/static/js/jquery-3.3.1.min.js}"></script>
+	<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+	<script th:src="@{/static/js/jquery.steps.js}"></script>
+	<script th:src="@{/static/js/main.js}"></script>
+</body>
+</html>
