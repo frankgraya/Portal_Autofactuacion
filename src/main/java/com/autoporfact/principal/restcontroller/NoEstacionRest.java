@@ -28,4 +28,9 @@ public class NoEstacionRest {
     public List<Noestacion> noestacion() {
         return noEstacionService.findAll();
     }
+
+   // @GetMapping("/estacion")
+   // public List<String> noestacion() {
+     //   return noEstacionService.findAll();
+    //}
 }
