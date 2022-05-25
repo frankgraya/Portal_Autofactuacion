@@ -18,6 +18,8 @@ public class NoEstacionRest {
 
 
    // http://localhost:4000/api/estacion
+    // se mostrarta por esa ruta
+
 
     @Autowired
     private NoEstacionService noEstacionService;
