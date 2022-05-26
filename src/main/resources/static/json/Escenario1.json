@@ -1,0 +1,21 @@
+
+
+    "Escenario1": [
+      {
+        "No estacion": 6500,
+        "Folio": 468892,
+        "Fecha": "12/05/2022",
+        "subtotal": 345.98,
+        "iva": 54.02,
+        "total": 400
+      },
+      {
+        "No estacion": 6050,
+        "Folio": 482747,
+        "Fecha": "20/05/2022",
+        "subtotal": 302.73,
+        "iva": 47.27,
+        "total": 350
+      },
+    ]
+}

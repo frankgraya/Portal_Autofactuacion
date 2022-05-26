@@ -27,6 +27,7 @@ public class PortalAutofacturacionApplication extends WebMvcConfigurationSupport
 		registry.addResourceHandler("/static/**").addResourceLocations(ResourceUtils.CLASSPATH_URL_PREFIX + "/static/");
 		registry.addResourceHandler("/webjars/**").addResourceLocations("/webjars/").resourceChain(false);
 		registry.addResourceHandler("/js/**").addResourceLocations("/js/").resourceChain(false);
+		registry.addResourceHandler("/json/**").addResourceLocations("/json/").resourceChain(false);
 		registry.addResourceHandler("/css/**").addResourceLocations("/css/").resourceChain(false);
 		registry.addResourceHandler("/fragments/**").addResourceLocations("/fragments/").resourceChain(false);
 		registry.addResourceHandler("/resources/**", "/css/**")
