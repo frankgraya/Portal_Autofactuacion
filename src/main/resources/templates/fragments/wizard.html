@@ -52,7 +52,7 @@
 									<input type="text" placeholder="Folio ticket" class="form-control" id="email" name="email" required >
 								</div>
 							</div>
-							<div class="form-row">
+							<div class="form-row" id="esc2">
 								<div class="form-holder">
 									<label for="password">Fecha del ticket*</label>
 									<input type="text" placeholder="Fecha del ticket" class="form-control" id="password" name="password" required >
@@ -213,6 +213,10 @@
 						footer: ''
 					})
 					$("#form-total").steps('previous')
+				} else {
+					if (estacion==="6500 Valero Quinta Avenida"){
+						$('#esc2').hide(); //oculto mediante id
+					}
 				}
 			}
 		});
