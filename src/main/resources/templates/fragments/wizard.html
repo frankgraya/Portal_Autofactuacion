@@ -20,13 +20,13 @@
 			<form class="form-register" id="form-register" action="#" method="post">
 				<div id="form-total">
 					<!-- SECTION 0 -->
-					<div th:replace="/fragments/step1.html"></div>
+					<div id="sec0" th:replace="/fragments/step1.html"></div>
 					<!-- SECTION 1 -->
-					<div th:replace="/fragments/step2.html"></div>
+					<div id="sec1" th:replace="/fragments/step2.html"></div>
 					<!-- SECTION 2 -->
-					<div th:replace="/fragments/step3.html"></div>
+					<div id="sec2" th:replace="/fragments/step3.html"></div>
 					<!-- SECTION 3 -->
-					<div th:replace="/fragments/step4.html"></div>
+					<div id="sec3" th:replace="/fragments/step4.html"></div>
 				</div>
 			</form>
 		</div>
@@ -37,6 +37,7 @@
 <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
 <script th:src="@{/static/js/jquery.steps.js}"></script>
 <script th:src="@{/static/js/main.js}"></script>
+<script defer src="https://use.fontawesome.com/releases/v6.1.1/js/all.js" integrity="sha384-xBXmu0dk1bEoiwd71wOonQLyH+VpgR1XcDH3rtxrLww5ajNTuMvBdL5SOiFZnNdp" crossorigin="anonymous"></script>
 <script>
 	window.addEventListener("load", function() {
 
@@ -84,14 +85,25 @@
 						icon: 'error',
 						title: 'Oops...',
 						text: 'Seleccione una estación de la lista!',
-						footer: ''
+						footer: '',
+						allowOutsideClick: false
+					}).then((result) => {
+						if (result.isConfirmed) {
+							location.reload();
+						}
 					})
 					$("#form-total").steps('previous')
-				} else {
+				} else { // FUNCIONALIDAD DE LOS ESCENARIOS
 					if (estacion==="6500 Valero Quinta Avenida"){
 						$('#esc2').hide(); //oculto mediante id
+						$('#tablaEsc2').hide();
+					} else {
+						$('#tablaEsc1').hide();
 					}
 				}
+			} else if (index===3){
+				const email = document.getElementById('emailx').value
+				$.get("/mail?email=" + email);
 			}
 		});
 	});
