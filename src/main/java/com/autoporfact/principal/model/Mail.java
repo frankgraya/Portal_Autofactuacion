@@ -1,5 +1,7 @@
 package com.autoporfact.principal.model;
 
+import org.springframework.core.io.FileSystemResource;
+
 import java.util.Date;
 import java.util.List;
 public class Mail {
@@ -17,7 +19,7 @@ public class Mail {
 
     private String contentType;
 
-    private List < Object > attachments;
+    private List < FileSystemResource > attachments;
 
     public Mail() {
         contentType = "text/plain";
@@ -83,11 +85,11 @@ public class Mail {
         this.mailContent = mailContent;
     }
 
-    public List < Object > getAttachments() {
+    public List < FileSystemResource > getAttachments() {
         return attachments;
     }
 
-    public void setAttachments(List < Object > attachments) {
+    public void setAttachments(List <FileSystemResource> attachments) {
         this.attachments = attachments;
     }
 }
