@@ -12,6 +12,27 @@
                 <datalist id="listEstaciones">
                 </datalist>
             </div>
+            <button class="form-ayuda" type="button" th:onclick="'javascript:mostrarAyuda1()'">
+                <i class="fa-solid fa-circle-question"></i>
+            </button>
         </div>
     </div>
 </section>
+<style>
+    .form-ayuda{
+        display:inline-block;
+        height: fit-content;
+    }
+</style>
+<script>
+    function mostrarAyuda1() {
+        Swal.fire({
+            title: 'Ticket',
+            text: '',
+            imageUrl: '/static/images/TicketNoEstacion.png',
+            imageWidth: 264,
+            imageHeight: 462,
+            imageAlt: 'Ticket con NoEstacion señalado',
+        })
+    }
+</script>

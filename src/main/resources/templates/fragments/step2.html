@@ -10,6 +10,12 @@
                 <label for="email">Folio ticket*</label>
                 <input type="text" placeholder="Folio ticket" class="form-control" id="email" name="email" required >
             </div>
+            <button class="form-ayuda" type="button" th:onclick="'javascript:mostrarAyuda()'">
+                <i class="fa-solid fa-circle-question"></i>
+            </button>
+            <button class="form-agregar" type="button" th:onclick="'javascript:agregarATabla()'">
+                <i class="fa-solid fa-circle-add"></i>
+            </button>
         </div>
         <div class="form-row" id="esc2">
             <div class="form-holder">
@@ -21,5 +27,79 @@
                 <input type="text" placeholder="Folio WEB" class="form-control" id="confirm_passwordx" name="confirm_passwordx" required>
             </div>
         </div>
+        <div class="form-row" id="tablaEsc2">
+            <table>
+                <tr>
+                    <th>ESCENARIO 2</th>
+                    <th>Contact</th>
+                    <th>Country</th>
+                </tr>
+                <tr>
+                    <td>Alfreds Futterkiste</td>
+                    <td>Maria Anders</td>
+                    <td>Germany</td>
+                </tr>
+                <tr>
+                    <td>Centro comercial Moctezuma</td>
+                    <td>Francisco Chang</td>
+                    <td>Mexico</td>
+                </tr>
+            </table>
+        </div>
+        <div class="form-row" id="tablaEsc1">
+            <table>
+                <tr>
+                    <th>ESCENARIO 1</th>
+                    <th>Contact</th>
+                    <th>Country</th>
+                </tr>
+                <tr>
+                    <td>Victor</td>
+                    <td>Maria Anders</td>
+                    <td>Germany</td>
+                </tr>
+                <tr>
+                    <td>Centro comercial Moctezuma</td>
+                    <td>Francisco Chang</td>
+                    <td>Mexico</td>
+                </tr>
+            </table>
+        </div>
     </div>
 </section>
+<style>
+    .form-ayuda{
+        display:inline-block;
+        height: fit-content;
+    }
+</style>
+<script>
+    function mostrarAyuda() {
+        if($('#esc2').is(":visible")){
+            Swal.fire({
+                title: 'Ticket',
+                text: '',
+                imageUrl: '/static/images/Ticketconwebid.png',
+                imageWidth: 264,
+                imageHeight: 462,
+                imageAlt: 'Ticket con webid señalado',
+            })
+        } else{
+            Swal.fire({
+                title: 'Ticket',
+                text: '',
+                imageUrl: '/static/images/Ticketsinwebid.png',
+                imageWidth: 262,
+                imageHeight: 381,
+                imageAlt: 'Ticket sin webid señalado',
+            })
+        }
+    }
+    function agregarATabla() {
+        if($('#esc2').is(":visible")){
+            $('#tablaEsc2').show();
+        } else{
+            $('#tablaEsc1').show();
+        }
+    }
+</script>

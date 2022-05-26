@@ -1,12 +1,20 @@
 package com.autoporfact.principal;
 
+import com.autoporfact.principal.model.Mail;
+import com.autoporfact.principal.service.MailService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 
 @SpringBootApplication
+@ComponentScan(basePackages = {
+		"com.autoporfact"
+})
 public class PortalAutofacturacionApplication extends WebMvcConfigurationSupport {
 
 	public static void main(String[] args) {
