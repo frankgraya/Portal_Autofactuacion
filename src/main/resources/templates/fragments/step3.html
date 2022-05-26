@@ -1,10 +1,38 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-
-</body>
-</html>
+<h2>
+    <span class="step-icon"><i class="zmdi zmdi-card"></i></span>
+    <span class="step-number">Paso 3</span>
+    <span class="step-text">Información de facturación</span>
+</h2>
+<section>
+    <div class="inner">
+        <div class="form-row">
+            <div class="form-holder form-holder-2">
+                <label for="card-type">Uso del CFDI</label>
+                <select name="card-type" id="card-type" class="form-control">
+                    <option value="" disabled selected>Selecciona uso del CFDI</option>
+                    <option value="Gasto General">Gasto general</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-holder form-holder-3">
+                <label for="card-number">RFC</label>
+                <input type="text" name="card-number" class="card-number" id="card-number" placeholder="RFC">
+            </div>
+            <div class="form-holder">
+                <label for="cvc">Razón social </label>
+                <input type="text" name="cvc" class="cvc" id="cvc" placeholder="Forma de Pago">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-holder">
+                <label for="cvcx">Forma de pago </label>
+                <input type="text" name="cvcx" value="Efectivo" class="cvcx" id="cvcx" placeholder="Forma de Pago" disabled>
+            </div>
+            <div class="form-holder form-holder-2">
+                <label for="emailx">Email*</label>
+                <input type="email" placeholder="Email" class="form-control" id="emailx" name="emailx" required pattern="[^@]+@[^@]+.[a-zA-Z]{2,6}">
+            </div>
+        </div>
+    </div>
+</section>

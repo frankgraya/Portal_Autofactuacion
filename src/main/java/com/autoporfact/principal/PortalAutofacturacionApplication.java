@@ -21,6 +21,8 @@ public class PortalAutofacturacionApplication extends WebMvcConfigurationSupport
 		registry.addResourceHandler("/js/**").addResourceLocations("/js/").resourceChain(false);
 		registry.addResourceHandler("/css/**").addResourceLocations("/css/").resourceChain(false);
 		registry.addResourceHandler("/fragments/**").addResourceLocations("/fragments/").resourceChain(false);
+		registry.addResourceHandler("/resources/**", "/css/**")
+				.addResourceLocations("/WEB-INF/resources/", "/WEB-INF/css/");
 		super.addResourceHandlers(registry);
 
 	}
