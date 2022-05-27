@@ -1,5 +1,5 @@
 <h2>
-    <span class="step-icon"><i class="zmdi zmdi-account"></i></span>
+    <span class="step-icon"><i class="zmdi zmdi-gas-station"></i></span>
     <span class="step-number">Paso 1</span>
     <span class="step-text">Información de Estación</span>
 </h2>
@@ -7,14 +7,24 @@
     <div class="inner">
         <div class="form-row">
             <div class="form-holder form-holder-2">
-                <label for="input-datalist">Numero de Estación*</label>
-                <input type="text" class="form-control" placeholder="Numero de estación" list="listEstaciones" id="input-datalist" required>
-                <datalist id="listEstaciones">
-                </datalist>
+
+                <div class="row">
+                    <div class="col">
+                        <label >Numero de Estación *</label>
+                    </div>
+                </div>
+                <div class="row ">
+                    <div class="col-sm-11 ">
+                        <input type="text" class="form-control" placeholder="Numero de estación" list="listEstaciones" id="input-datalist" required>
+                        <datalist id="listEstaciones">
+                        </datalist>
+                    </div>
+                    <div class="col-sm-1  align-self-center">
+                        <i class="fas fa-circle-question fa-beat"  style="font-size:20px;color:white;cursor:hand;" onclick="'javascript:mostrarAyuda1()'"></i>
+                    </div>
+                </div>
+
             </div>
-            <button class="form-ayuda" type="button" th:onclick="'javascript:mostrarAyuda1()'">
-                <i class="fa-solid fa-circle-question"></i>
-            </button>
         </div>
     </div>
 </section>
@@ -27,12 +37,15 @@
 <script>
     function mostrarAyuda1() {
         Swal.fire({
-            title: 'Ticket',
+
             text: '',
             imageUrl: '/static/images/TicketNoEstacion.png',
             imageWidth: 264,
             imageHeight: 462,
             imageAlt: 'Ticket con NoEstacion señalado',
+            showCloseButton: true,
+            showConfirmButton: false,
+            focusClose: true
         })
     }
 </script>
