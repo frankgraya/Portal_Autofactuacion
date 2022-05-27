@@ -7,11 +7,11 @@
     <div class="inner">
         <div class="form-row">
             <div class="form-holder form-holder-2">
-                <label for="email">Folio ticket*</label>
-                <input type="text" placeholder="Folio ticket" class="form-control" id="email" name="email" required >
+                <label for="folioTicket">Folio ticket*</label>
+                <input type="text" placeholder="Folio ticket" class="form-control" id="folioTicket" name="folioTicket" required >
             </div>
 
-        </div>
+
         <div class="form-row" id="esc2">
             <div class="form-holder">
                 <label for="fechaTicket">Fecha del ticket*</label>
@@ -20,17 +20,23 @@
             </div>
             <div class="form-holder">
                 <label for="confirm_passwordx">Folio WEB*</label>
-                <input type="text" placeholder="Folio WEB" class="form-control" id="confirm_passwordx"
+                <input type="text" placeholder="Folio WEB" class="form-control" id="folioWeb"
                        name="confirm_passwordx" required>
             </div>
+
+
         </div>
 
         <button class="form-ayuda" type="button" th:onclick="'javascript:mostrarAyuda()'">
             <i class="fa-solid fa-circle-question"></i>
         </button>
-        <button class="form-agregar" type="button" th:onclick="'javascript:agregarLista()'">
+        <button class="form-agregar" type="button" th:onclick="'javascript:capturar()'">
             <i class="fa-solid fa-plus"></i>Agregar
         </button>
+        <button class="form-agregar" type="reset" th:onclick="'javascript:hola()'">
+            <i class="fa-solid fa-plus"></i>MOstrar hola
+        </button>
+
         <div class="form-row" id="tablaEsc2">
             <table class="table table-white table-borderless">
                 <thead>
@@ -47,9 +53,9 @@
                 </thead>
                 <tr>
                     <td>6050</td>
-                    <td>922111</td>
+                    <td>'+NuevoFolio.folioTicket+'</td>
                     <td>18/05/2022</td>
-                    <td>3326</td>
+                    <td>'+NuevoFolio.folioWeb+'</td>
                     <td>302.73</td>
                     <td>47.27</td>
                     <td>350</td>
@@ -74,18 +80,11 @@
                 </tr>
                 </thead>
                 <tr>
-                    <td>6500</td>
-                    <td>4688892</td>
-                    <td>12/05/2022</td>
-                    <td>345.98</td>
-                    <td>54.02</td>
-                    <td>400</td>
-                    <td>
-                        <button type="button" class="btn btn-primary btn-sm">Eliminar</button>
-                    </td>
+
+                    </tbody>
                 </tr>
             </table>
-        </div>
+        </div> </div>
     </div>
 </section>
 <style>
@@ -95,6 +94,13 @@
     }
 </style>
 <script>
+
+
+     function hola(){
+        console.log("HOLA");
+
+
+              }
     function mostrarAyuda() {
         if($('#esc2').is(":visible")){
             Swal.fire({
@@ -115,15 +121,43 @@
                 imageAlt: 'Ticket sin webid señalado',
             })
         }
-    }
-    function agregarATabla() {
-        if($('#esc2').is(":visible")){
-            $('#tablaEsc2').show();
-        } else{
-            $('#tablaEsc1').show();
-        }
-    }
+     }
 
+ function capturar(){
+        console.log("entrando al metodo capturar");
+              this.folioTicket=folioTicket;
+              this.folioWeb=folioWeb;
+              }
+
+
+
+var folioTicketCapturar = document.getElementById('folioTicket').value;
+ console.log("el folio Ticket es " + folioTicketCapturar);
+
+ <  v</v>ar folioWebCapturar = document.getElementById('folioWeb').value;
+    console.log("la edad es " + folioWebCapturar);
+
+    NuevoFolio = new Folio(folioTicket,folioWeb);
+    console.log("El NuevoFolio es ",NuevoFolio);
+Agregar();
+}
+var baseDatos= [];
+function Agregar() {
+  console.log("capturado");
+  baseDatos.push(NuevoSujeto);
+  console.log(NuevoSujeto);
+  document.getElementById("table").innerHTML += ' <tbody>
+                    <td>6500</td>
+                    <td>'+ NuevoFolio.folioTicket +'</td>
+                    <td>12/05/2022</td>
+                    <td>345.98</td>
+                    <td>54.02</td>
+                    <td>400</td>
+                    <td>
+                        <button type="button" class="btn btn-primary btn-sm">Eliminar</button>
+                    </td>';
+
+    }
 
 
 
