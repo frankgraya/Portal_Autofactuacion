@@ -8,37 +8,47 @@
         <div class="form-row">
             <div class="form-holder form-holder-2">
                 <label for="folioTicket">Folio ticket*</label>
-                <input type="text" placeholder="Folio ticket" class="form-control" id="folioTicket" name="folioTicket" required >
+                <input type="text" placeholder="Folio ticket" class="form-control" id="folioTicket" name="folioTicket"  required>
             </div>
 
-
+        </div>
         <div class="form-row" id="esc2">
             <div class="form-holder">
                 <label for="fechaTicket">Fecha del ticket*</label>
-                <input type="date" min="2017-04-01" max="2017-04-30" id="fechaTicket" name="fechaTicket" required/>
+                <input type="date" min="2017-01-01" max="2025-12-31" id="fechaTicket" name="fechaTicket" required/>
                 <!--<input type="text" placeholder="Fecha del ticket" class="form-control" id="password" name="password" required >-->
             </div>
             <div class="form-holder">
-                <label for="confirm_passwordx">Folio WEB*</label>
-                <input type="text" placeholder="Folio WEB" class="form-control" id="folioWeb"
-                       name="confirm_passwordx" required>
+                <label for="webId">Folio WEB*</label>
+                <input type="text" placeholder="Folio WEB" class="form-control" id="webId"
+                       name="webId" required>
             </div>
-
-
         </div>
 
         <button class="form-ayuda" type="button" th:onclick="'javascript:mostrarAyuda()'">
             <i class="fa-solid fa-circle-question"></i>
         </button>
-        <button class="form-agregar" type="button" th:onclick="'javascript:capturar()'">
+        <button class="form-agregar" type="button" th:onclick="'javascript:agregarATabla()'">
             <i class="fa-solid fa-plus"></i>Agregar
         </button>
-        <button class="form-agregar" type="reset" th:onclick="'javascript:hola()'">
-            <i class="fa-solid fa-plus"></i>MOstrar hola
-        </button>
-
         <div class="form-row" id="tablaEsc2">
-            <table class="table table-white table-borderless">
+            <table class="table" id="myTable2">
+                <thead>
+                <tr>
+                    <th scope="col">No estacion</th>
+                    <th scope="col">Folio</th>
+                    <th scope="col">Fecha</th>
+                    <th scope="col">subtotal</th>
+                    <th scope="col">iva</th>
+                    <th scope="col">total</th>
+                    <th scope="col">acciones</th>
+                </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+        <div class="form-row" id="tablaEsc1">
+            <table class="table" id="myTable1">
                 <thead>
                 <tr>
                     <th scope="col">No estacion</th>
@@ -51,40 +61,9 @@
                     <th scope="col">acciones</th>
                 </tr>
                 </thead>
-                <tr>
-                    <td>6050</td>
-                    <td>'+NuevoFolio.folioTicket+'</td>
-                    <td>18/05/2022</td>
-                    <td>'+NuevoFolio.folioWeb+'</td>
-                    <td>302.73</td>
-                    <td>47.27</td>
-                    <td>350</td>
-                    <td>
-                        <button type="button" class="btn btn-primary btn-sm">Eliminar</button>
-                    </td>
-                </tr>
-
+                <tbody></tbody>
             </table>
         </div>
-        <div class="form-row" id="tablaEsc1">
-            <table class="table table-white table-borderless">
-                <thead>
-                <tr>
-                    <th>No estacion 1</th>
-                    <th>Folio</th>
-                    <th>Fecha</th>
-                    <th>subtotal</th>
-                    <th>iva</th>
-                    <th>total</th>
-                    <th>acciones</th>
-                </tr>
-                </thead>
-                <tr>
-
-                    </tbody>
-                </tr>
-            </table>
-        </div> </div>
     </div>
 </section>
 <style>
@@ -94,13 +73,6 @@
     }
 </style>
 <script>
-
-
-     function hola(){
-        console.log("HOLA");
-
-
-              }
     function mostrarAyuda() {
         if($('#esc2').is(":visible")){
             Swal.fire({
@@ -121,41 +93,53 @@
                 imageAlt: 'Ticket sin webid señalado',
             })
         }
-     }
+    }
+    function agregarATabla() {
+        if($('#esc2').is(":visible")){
+            $('#tablaEsc1').show();
+            const estacion = document.getElementById('input-datalist').value
+            const folio = document.getElementById('folioTicket').value
+            const fecha = document.getElementById('fechaTicket').value
+            const webId = document.getElementById('webId').value
+            //console.log("/esc1?NoEstacion=" + estacion.substring(0, 4) + "&Folio=" + folio, "&Fecha=" + fecha, "&WebId=" + webId)
+            $.get("/esc1?NoEstacion=" + estacion.substring(0, 4) + "&Folio=" + folio + "&Fecha=" + fecha + "&WebId=" + webId, function (data) {
+                var row='<tr>';
+                row+='<td>'+data.noEstacion+'</td>';
+                row+='<td>'+data.folio+'</td>';
+                row+='<td>'+data.fecha+'</td>';
+                row+='<td>'+data.webId+'</td>';
+                row+='<td>'+data.subTotal+'</td>';
+                row+='<td>'+data.iva+'</td>';
+                row+='<td>'+data.total+'</td>';
+                row+='<td>'+'</td>';
+                row+='</tr>';
+                $('#myTable1 tbody').append(row);
+            })
+            document.getElementById('folioTicket').value=""
+            document.getElementById('fechaTicket').value=""
+            document.getElementById('webId').value=""
+        } else{
+            $('#tablaEsc2').show();
+            const estacion = document.getElementById('input-datalist').value
+            const folio = document.getElementById('folioTicket').value
+            //$.get("/esc1?NoEstacion=" + estacion.substring(0, 4) + "&Folio=" + folio, "&Fecha=" + fecha, "&WebId=" + webId, function (data) {
+            $.get("/esc2?NoEstacion=" + estacion.substring(0, 4) + "&Folio=" + folio, function (data) {
+                console.log(data.folio)
+                var row='<tr>';
+                row+='<td>'+data.noEstacion+'</td>';
+                row+='<td>'+data.folio+'</td>';
+                row+='<td>'+data.fecha+'</td>';
+                row+='<td>'+data.subTotal+'</td>';
+                row+='<td>'+data.iva+'</td>';
+                row+='<td>'+data.total+'</td>';
+                row+='<td>'+'</td>';
+                row+='</tr>';
+                $('#myTable2 tbody').append(row);
+            })
+        }
 
- function capturar(){
-        console.log("entrando al metodo capturar");
-              this.folioTicket=folioTicket;
-              this.folioWeb=folioWeb;
-              }
-
-
-
-var folioTicketCapturar = document.getElementById('folioTicket').value;
- console.log("el folio Ticket es " + folioTicketCapturar);
-
- <  v</v>ar folioWebCapturar = document.getElementById('folioWeb').value;
-    console.log("la edad es " + folioWebCapturar);
-
-    NuevoFolio = new Folio(folioTicket,folioWeb);
-    console.log("El NuevoFolio es ",NuevoFolio);
-Agregar();
-}
-var baseDatos= [];
-function Agregar() {
-  console.log("capturado");
-  baseDatos.push(NuevoSujeto);
-  console.log(NuevoSujeto);
-  document.getElementById("table").innerHTML += ' <tbody>
-                    <td>6500</td>
-                    <td>'+ NuevoFolio.folioTicket +'</td>
-                    <td>12/05/2022</td>
-                    <td>345.98</td>
-                    <td>54.02</td>
-                    <td>400</td>
-                    <td>
-                        <button type="button" class="btn btn-primary btn-sm">Eliminar</button>
-                    </td>';
+    }
+    function agregarLista() {
 
     }
 
