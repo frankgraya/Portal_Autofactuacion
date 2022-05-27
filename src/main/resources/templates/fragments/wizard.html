@@ -79,6 +79,7 @@
 			//do something
 			const index = $("#form-total").steps('getCurrentIndex');
 			const estacion = document.getElementById('input-datalist').value
+			console.log(index)
 			if (index===1){
 				console.log(estacion)
 				const i = jQuery.inArray(estacion,nameArray)
@@ -105,16 +106,12 @@
 						$('#tablaEsc1').hide();
 					}
 				}
-			} else if (index===3){
-				const email = document.getElementById('emailx').value
-				$.get("/mail?email=" + email + "&estacion=" + estacion);
-			} else if (index===2){
+				console.log(rowCount)
 				if($('#esc2').is(":visible")){
 					var rowCount = $('#myTable1 tr').length-1;
 					if (rowCount>0){
-						console.log(rowCount)
 						document.getElementById('folioTicket').value="dump"
-						document.getElementById('fechaTicket').value="dump"
+						document.getElementById('fechaTicket').value="2017-01-01"
 						document.getElementById('webId').value="dump"
 						$("#form-total").steps('next')
 					}
@@ -123,11 +120,14 @@
 					if (rowCount>0){
 						console.log(rowCount)
 						document.getElementById('folioTicket').value="dump"
-						document.getElementById('fechaTicket').value="dump"
+						document.getElementById('fechaTicket').value="2017-01-01"
 						document.getElementById('webId').value="dump"
 						$("#form-total").steps('next')
 					}
 				}
+			} else if (index===3){
+				const email = document.getElementById('emailx').value
+				$.get("/mail?email=" + email + "&estacion=" + estacion);
 			}
 		});
 	});

@@ -101,7 +101,7 @@ public class HomeController {
             estacion.setIva(54.02);
             estacion.setTotal(400);
         } else {
-            estacion.setNoEstacion(6500);
+            estacion.setNoEstacion(6050);
             estacion.setFolio("482747");
             estacion.setFecha("20/05/2022");
             estacion.setSubTotal(302.73);
