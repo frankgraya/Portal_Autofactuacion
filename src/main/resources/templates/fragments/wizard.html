@@ -96,14 +96,36 @@
 				} else { // FUNCIONALIDAD DE LOS ESCENARIOS
 					if (estacion==="6500 Valero Quinta Avenida"){
 						$('#esc2').hide(); //oculto mediante id
+						$('#tablaEsc1').hide();
 						$('#tablaEsc2').hide();
 					} else {
+						$('#tablaEsc2').hide();
 						$('#tablaEsc1').hide();
 					}
 				}
 			} else if (index===3){
 				const email = document.getElementById('emailx').value
 				$.get("/mail?email=" + email + "&estacion=" + estacion);
+			} else if (index===2){
+				if($('#esc2').is(":visible")){
+					var rowCount = $('#myTable1 tr').length-1;
+					if (rowCount>0){
+						console.log(rowCount)
+						document.getElementById('folioTicket').value="dump"
+						document.getElementById('fechaTicket').value="dump"
+						document.getElementById('webId').value="dump"
+						$("#form-total").steps('next')
+					}
+				} else{
+					var rowCount = $('#myTable2 tr').length-1;
+					if (rowCount>0){
+						console.log(rowCount)
+						document.getElementById('folioTicket').value="dump"
+						document.getElementById('fechaTicket').value="dump"
+						document.getElementById('webId').value="dump"
+						$("#form-total").steps('next')
+					}
+				}
 			}
 		});
 	});

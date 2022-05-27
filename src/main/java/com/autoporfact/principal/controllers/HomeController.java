@@ -1,14 +1,19 @@
 package com.autoporfact.principal.controllers;
 
+import com.autoporfact.principal.model.Estacion;
 import com.autoporfact.principal.model.Mail;
+import com.autoporfact.principal.service.EstacionService;
 import com.autoporfact.principal.service.MailService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.File;
@@ -26,6 +31,9 @@ public class HomeController {
 
     @Autowired
     MailService mailService;
+
+    @Autowired
+    EstacionService estacionService;
     //    @Secured("ADMIN")
     @GetMapping({"/index", "/home", "/"})
     public String index(Model model) {
@@ -56,5 +64,50 @@ public class HomeController {
 
         mail.setAttachments(attachments);
         mailService.sendEmailHTML(mail, attachments);
+    }
+
+    @GetMapping({"/esc1"})
+    public ResponseEntity<Estacion> esc1(@RequestParam("NoEstacion") long NoEstacion, @RequestParam("Folio") String Folio, @RequestParam("Fecha") String Fecha, @RequestParam("WebId") String WebId) {
+        Estacion estacion = new Estacion();
+        if (Folio.equals("922111")){
+            estacion.setNoEstacion(6050);
+            estacion.setFolio("922111");
+            estacion.setFecha("18/05/2022");
+            estacion.setSubTotal(302.73);
+            estacion.setIva(47.2);
+            estacion.setTotal(350);
+            estacion.setWebId("3326");
+        } else {
+            estacion.setNoEstacion(6050);
+            estacion.setFolio("164432");
+            estacion.setFecha("15/05/2022");
+            estacion.setSubTotal(302.73);
+            estacion.setIva(47.27);
+            estacion.setTotal(350);
+            estacion.setWebId("CB33");
+        }
+        return new ResponseEntity<>(estacion, HttpStatus.OK);
+    }
+
+    @GetMapping({"/esc2"})
+    public ResponseEntity<Estacion> esc2(@RequestParam("NoEstacion") long NoEstacion, @RequestParam("Folio") String Folio) {
+        //return estacionService.findEscenario2(NoEstacion, Folio);
+        Estacion estacion = new Estacion();
+        if (Folio.equals("468892")){
+            estacion.setNoEstacion(6500);
+            estacion.setFolio("468892");
+            estacion.setFecha("12/05/2022");
+            estacion.setSubTotal(345.98);
+            estacion.setIva(54.02);
+            estacion.setTotal(400);
+        } else {
+            estacion.setNoEstacion(6500);
+            estacion.setFolio("482747");
+            estacion.setFecha("20/05/2022");
+            estacion.setSubTotal(302.73);
+            estacion.setIva(47.27);
+            estacion.setTotal(350);
+        }
+        return new ResponseEntity<>(estacion, HttpStatus.OK);
     }
 }

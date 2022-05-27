@@ -1,5 +1,6 @@
 package com.autoporfact.principal;
 
+import com.autoporfact.principal.model.Estacion;
 import com.autoporfact.principal.model.Mail;
 import com.autoporfact.principal.service.MailService;
 import org.springframework.beans.factory.annotation.Autowired;
