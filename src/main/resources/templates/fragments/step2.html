@@ -1,5 +1,5 @@
 <h2>
-    <span class="step-icon"><i class="zmdi zmdi-account"></i></span>
+    <span class="step-icon"><i class="zmdi zmdi-receipt"></i></span>
     <span class="step-number">Paso 2</span>
     <span class="step-text">Información del ticket</span>
 </h2>
@@ -7,14 +7,26 @@
     <div class="inner">
         <div class="form-row">
             <div class="form-holder form-holder-2">
-                <label for="folioTicket">Folio ticket*</label>
-                <input type="text" placeholder="Folio ticket" class="form-control" id="folioTicket" name="folioTicket"  required>
-            </div>
 
+                <div class="row ">
+                    <div class="col">
+                        <label for="folioTicket">Folio*</label>
+                    </div>
+
+                </div>
+                <div class="row ">
+                    <div class="col-sm-11 ">
+                        <input type="text" placeholder="Folio ticket" class="form-control" id="folioTicket" name="folioTicket"  required>
+                    </div>
+                    <div class="col-sm-1  align-self-center">
+                        <i class="fas fa-circle-question fa-beat"  style="font-size:20px;color:white;cursor:hand;" th:onclick="javascript:mostrarAyuda()"></i>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="form-row" id="esc2">
             <div class="form-holder">
-                <label for="fechaTicket">Fecha del ticket*</label>
+                <label for="fechaTicket">Fecha del venta*</label>
                 <input type="date" min="2017-01-01" max="2025-12-31" id="fechaTicket" name="fechaTicket" required/>
                 <!--<input type="text" placeholder="Fecha del ticket" class="form-control" id="password" name="password" required >-->
             </div>
@@ -24,15 +36,16 @@
                        name="webId" required>
             </div>
         </div>
+        <div class="form-row">
+            <div class="form-holder">
+                <button type="button" class="btn btn-primary active" th:onclick="'javascript:agregarATabla()'">
+                    <i class="fa-solid fa-circle-plus"></i> <span> Agregar ticket</span>
+                </button>
+            </div>
+        </div>
 
-        <button class="form-ayuda" type="button" th:onclick="'javascript:mostrarAyuda()'">
-            <i class="fa-solid fa-circle-question"></i>
-        </button>
-        <button class="form-agregar" type="button" th:onclick="'javascript:agregarATabla()'">
-            <i class="fa-solid fa-plus"></i>Agregar
-        </button>
         <div class="form-row" id="tablaEsc2">
-            <table class="table" id="myTable2">
+            <table class="table table-primary" id="myTable2">
                 <thead>
                 <tr>
                     <th scope="col">No estacion</th>
@@ -48,7 +61,7 @@
             </table>
         </div>
         <div class="form-row" id="tablaEsc1">
-            <table class="table" id="myTable1">
+            <table class="table table-primary" id="myTable1">
                 <thead>
                 <tr>
                     <th scope="col">No estacion</th>
@@ -76,21 +89,27 @@
     function mostrarAyuda() {
         if($('#esc2').is(":visible")){
             Swal.fire({
-                title: 'Ticket',
+
                 text: '',
                 imageUrl: '/static/images/Ticketconwebid.png',
                 imageWidth: 264,
                 imageHeight: 462,
                 imageAlt: 'Ticket con webid señalado',
+                showCloseButton: true,
+                showConfirmButton: false,
+                focusClose: true
             })
         } else{
             Swal.fire({
-                title: 'Ticket',
+
                 text: '',
                 imageUrl: '/static/images/Ticketsinwebid.png',
                 imageWidth: 262,
                 imageHeight: 381,
                 imageAlt: 'Ticket sin webid señalado',
+                showCloseButton: true,
+                showConfirmButton: false,
+                focusClose: true
             })
         }
     }
@@ -111,7 +130,7 @@
                 row+='<td>'+data.subTotal+'</td>';
                 row+='<td>'+data.iva+'</td>';
                 row+='<td>'+data.total+'</td>';
-                row+='<td>'+'</td>';
+                row+='<td><i class="fa-regular fa-trash-can"></i></td>';
                 row+='</tr>';
                 $('#myTable1 tbody').append(row);
             })
@@ -132,7 +151,7 @@
                 row+='<td>'+data.subTotal+'</td>';
                 row+='<td>'+data.iva+'</td>';
                 row+='<td>'+data.total+'</td>';
-                row+='<td>'+'</td>';
+                row+='<td><i class="fa-regular fa-trash-can"></i></td>';
                 row+='</tr>';
                 $('#myTable2 tbody').append(row);
             })
