@@ -115,7 +115,6 @@
     }
     function agregarATabla() {
         if($('#esc2').is(":visible")){
-            $('#tablaEsc1').show();
             const estacion = document.getElementById('input-datalist').value
             const folio = document.getElementById('folioTicket').value
             const fecha = document.getElementById('fechaTicket').value
@@ -132,13 +131,23 @@
                 row+='<td>'+data.total+'</td>';
                 row+='<td><i class="fa-regular fa-trash-can" style="cursor:hand;"></i></td>';
                 row+='</tr>';
-                $('#myTable1 tbody').append(row);
+                if (data.folio === null && data.fecha === null && data.webId === null){
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'El FOLIO no existe!',
+                        footer: '',
+                        allowOutsideClick: false
+                    })
+                } else {
+                    $('#myTable1 tbody').append(row);
+                    $('#tablaEsc1').show();
+                }
             })
             document.getElementById('folioTicket').value=""
             document.getElementById('fechaTicket').value=""
             document.getElementById('webId').value=""
         } else{
-            $('#tablaEsc2').show();
             const estacion = document.getElementById('input-datalist').value
             const folio = document.getElementById('folioTicket').value
             //$.get("/esc1?NoEstacion=" + estacion.substring(0, 4) + "&Folio=" + folio, "&Fecha=" + fecha, "&WebId=" + webId, function (data) {
@@ -153,7 +162,18 @@
                 row+='<td>'+data.total+'</td>';
                 row+='<td><i class="fa-regular fa-trash-can" style="cursor:hand;"></i></td>';
                 row+='</tr>';
-                $('#myTable2 tbody').append(row);
+                if (data.folio === null){
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'El FOLIO no existe!',
+                        footer: '',
+                        allowOutsideClick: false
+                    })
+                } else {
+                    $('#myTable2 tbody').append(row);
+                    $('#tablaEsc2').show();
+                }
             })
         }
 
