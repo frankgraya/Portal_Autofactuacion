@@ -1,7 +1,7 @@
 <h2>
-    <span class="step-icon"><i class="zmdi zmdi-receipt"></i></span>
+    <span class="step-icon"><i class="zmdi zmdi-check-circle"></i></span>
     <span class="step-number">Paso 4</span>
-    <span class="step-text">Detalle de confirmación</span>
+    <span class="step-text">Confirmación</span>
 </h2>
 <section>
     <div class="inner">
@@ -10,12 +10,8 @@
             <table class="table">
                 <tbody>
                 <tr class="space-row">
-                    <th>Numero de Estación:</th>
-                    <td id="username-val"></td>
-                </tr>
-                <tr class="space-row">
-                    <th>Folio ticket:</th>
-                    <td id="email-val"></td>
+                    <th>Estación:</th>
+                    <td id="input-datalist-val"></td>
                 </tr>
                 <tr class="space-row">
                     <th>Uso del CFDI:</th>
@@ -35,34 +31,32 @@
                 </tr>
                 <tr class="space-row">
                     <th>Email:</th>
-                    <td id="emailx-val">publico@avaloninformatica.com</td>
+                    <td id="email-val"></td>
                 </tr>
                 </tbody>
             </table>
             <div class="container">
-                <div class="row">
-                    <div class="col-sm">
-                        <button type="button" >
-                            <i class="fa fa-file"
-                               style="font-size:20px;color:black;cursor:hand;">
+                <div class="form-row">
+                    <div class="form-holder">
+                        <button type="button" class="btn btn-primary active"  >
+
                                 <a
                                         href="/static/filesPAC/AIS021008E60GAGFK922111.pdf"
-                                        download="AIS021008E60GAGFK922111.pdf">
-                            </i> Descargar en PDF
-                            </a>
+                                        download="AIS021008E60GAGFK922111.pdf"
+                                        style="text-decoration: none;color:white;"><i class="fa fa-file-pdf" ></i> Descargar PDF
+                                </a>
+
                         </button>
                     </div>
-                    <div class="col-sm">
-                        <button type="button" >
-                            <i class="fa fa-file"
-                               style="font-size:20px;color:black;">
-                                <a href="/static/filesPAC/AIS021008E60GAGFK922111.xml"
-                                   download="AIS021008E60GAGFK922111.xml">
-                            </i> Descargar en XML
-                            </a>
+                </div>
+                <div class="form-row">
+                    <div class="form-holder">
+                        <button type="button" class="btn btn-primary active" th:onclick="'javascript:agregarATabla()'">
+                            <a href="/static/filesPAC/AIS021008E60GAGFK922111.xml"
+                               download="AIS021008E60GAGFK922111.xml"
+                               style="text-decoration: none;color:white;"><i class="fa-solid fa-file-excel"></i> <span>Descarga XML</span></a>
+
                         </button>
-                    </div>
-                    <div class="col-sm">
                     </div>
                 </div>
             </div>

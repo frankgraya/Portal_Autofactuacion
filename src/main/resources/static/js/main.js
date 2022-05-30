@@ -38,9 +38,10 @@ $(function(){
             finish : '<i class="zmdi zmdi-arrow-right"></i>',
             current : ''
         },
-        onStepChanging: function (event, currentIndex, newIndex) { 
+        onStepChanging: function (event, currentIndex, newIndex) {
+            var store =$('#input-datalist').val();
             var username = $('#username').val();
-            var email = $('#email').val();
+            var email = $('#emailx').val();
             var cardtype = $('#card-type').val();
             var cardnumber = $('#card-number').val();
             var cvc = $('#cvc').val();
@@ -54,6 +55,7 @@ $(function(){
             $('#cvc-val').text(cvc);
             $('#month-val').text(month);
             $('#year-val').text(year);
+            $('#input-datalist-val').text(store);
 
             $("#form-register").validate().settings.ignore = ":disabled,:hidden";
             return $("#form-register").valid();

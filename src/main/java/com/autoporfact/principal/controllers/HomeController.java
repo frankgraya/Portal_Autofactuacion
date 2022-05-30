@@ -77,7 +77,7 @@ public class HomeController {
             estacion.setIva(47.2);
             estacion.setTotal(350);
             estacion.setWebId("3326");
-        } else {
+        } else if (Folio.equals("1644432")) {
             estacion.setNoEstacion(6050);
             estacion.setFolio("164432");
             estacion.setFecha("15/05/2022");
@@ -100,7 +100,7 @@ public class HomeController {
             estacion.setSubTotal(345.98);
             estacion.setIva(54.02);
             estacion.setTotal(400);
-        } else {
+        } else if(Folio.equals("482747")){
             estacion.setNoEstacion(6050);
             estacion.setFolio("482747");
             estacion.setFecha("20/05/2022");
