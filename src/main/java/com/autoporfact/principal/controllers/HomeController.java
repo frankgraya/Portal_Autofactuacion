@@ -42,6 +42,7 @@ public class HomeController {
     }
 
     @GetMapping({"/mail"})
+    // TODO CAMBIAR VARIABLE ESTACION POR ESCENARIO
     public void sendMail(@RequestParam("email") String email, @RequestParam("estacion") String estacion, RedirectAttributes redirectAttributes) {
         Mail mail = new Mail();
         List<FileSystemResource> attachments = new ArrayList<>();

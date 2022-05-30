@@ -64,23 +64,30 @@
 </script>
 <script>
 	$(document).ready(function(){
+		const nameArray = ["6050 Valero Nacozari",
+			"6500 Valero Quinta Avenida",
+			"2584 Fosell Ojo Caliente",
+			"3245 Valero Maestros",
+			"4564 Valero Servicios y Refinados AGS",
+			"8546 Panamericana - Aguascalientes",
+			"1452 Valero El Arco",
+			"4566 Valero Dayco",
+			"4788 Teoloyucan",
+			"3221 Huehuetoca",
+			"4555 Servicio Chiconautla"];
+
+		let rowCount;
 		$('#nextBtn').click(function(){
-			const nameArray = ["6050 Valero Nacozari",
-				"6500 Valero Quinta Avenida",
-				"2584 Fosell Ojo Caliente",
-				"3245 Valero Maestros",
-				"4564 Valero Servicios y Refinados AGS",
-				"8546 Panamericana - Aguascalientes",
-				"1452 Valero El Arco",
-				"4566 Valero Dayco",
-				"4788 Teoloyucan",
-				"3221 Huehuetoca",
-				"4555 Servicio Chiconautla"];
-			//do something
-			const index = $("#form-total").steps('getCurrentIndex');
+			let index = $("#form-total").steps('getCurrentIndex')-1;
 			const estacion = document.getElementById('input-datalist').value
+			//do something
 			console.log(index)
-			if (index===1){
+			stepControl(estacion, index, nameArray, rowCount)
+		});
+	});
+	function stepControl(estacion,index, nameArray, rowCount) {
+		switch (index) {
+			case 0:
 				console.log(estacion)
 				const i = jQuery.inArray(estacion,nameArray)
 				if (i===-1){
@@ -97,8 +104,8 @@
 					})
 					$("#form-total").steps('previous')
 				} else { // FUNCIONALIDAD DE LOS ESCENARIOS
-					if (estacion==="6500 Valero Quinta Avenida"){
-						$('#esc2').hide(); //oculto mediante id
+					if (estacion==="6500 Valero Quinta Avenida"){ // ESCENARIO 2
+						$('#esc1').hide(); //oculto mediante id
 						$('#tablaEsc1').hide();
 						$('#tablaEsc2').hide();
 					} else {
@@ -107,16 +114,62 @@
 					}
 				}
 				console.log(rowCount)
-				if($('#esc2').is(":visible")){
-					var rowCount = $('#myTable1 tr').length-1;
+				setupEsc(index, rowCount)
+				break
+			case 1:
+				break
+			case 2:
+				const email = document.getElementById('emailx').value
+				$.get("/mail?email=" + email + "&estacion=" + estacion);
+				break
+			case 3:
+				break
+		}
+	}
+	function setupEsc(index, rowCount) { // CONFIGURAR ESCENARIO
+		if($('#esc1').is(":visible")){
+			switch (index) { // ACCIONES DEPENDIENDO DEL PASO EN EL QUE NOS ENCONTREMOS
+				case 0:
+					rowCount = $('#myTable1 tr').length-1;
 					if (rowCount>0){
 						document.getElementById('folioTicket').value="dump"
 						document.getElementById('fechaTicket').value="2017-01-01"
 						document.getElementById('webId').value="dump"
 						$("#form-total").steps('next')
 					}
-				} else{
-					var rowCount = $('#myTable2 tr').length-1;
+					break
+				case 1:
+					$('#tablaEsc1').show();
+					const estacion = document.getElementById('input-datalist').value
+					const folio = document.getElementById('folioTicket').value
+					const fecha = document.getElementById('fechaTicket').value
+					const webId = document.getElementById('webId').value
+					$.get("/esc1?NoEstacion=" + estacion.substring(0, 4) + "&Folio=" + folio + "&Fecha=" + fecha + "&WebId=" + webId, function (data) {
+						var row='<tr>';
+						row+='<td>'+data.noEstacion+'</td>';
+						row+='<td>'+data.folio+'</td>';
+						row+='<td>'+data.fecha+'</td>';
+						row+='<td>'+data.webId+'</td>';
+						row+='<td>'+data.subTotal+'</td>';
+						row+='<td>'+data.iva+'</td>';
+						row+='<td>'+data.total+'</td>';
+						row+='<td>'+'</td>';
+						row+='</tr>';
+						$('#myTable1 tbody').append(row);
+					})
+					document.getElementById('folioTicket').value=""
+					document.getElementById('fechaTicket').value=""
+					document.getElementById('webId').value=""
+					break
+				case 2:
+					break
+				case 3:
+					break
+			}
+		} else {
+			switch (index) {
+				case 0:
+					rowCount = $('#myTable2 tr').length - 1;
 					if (rowCount>0){
 						console.log(rowCount)
 						document.getElementById('folioTicket').value="dump"
@@ -124,13 +177,32 @@
 						document.getElementById('webId').value="dump"
 						$("#form-total").steps('next')
 					}
-				}
-			} else if (index===3){
-				const email = document.getElementById('emailx').value
-				$.get("/mail?email=" + email + "&estacion=" + estacion);
+					break
+				case 1:
+					$('#tablaEsc2').show();
+					const estacion = document.getElementById('input-datalist').value
+					const folio = document.getElementById('folioTicket').value
+					$.get("/esc2?NoEstacion=" + estacion.substring(0, 4) + "&Folio=" + folio, function (data) {
+						console.log(data.folio)
+						var row='<tr>';
+						row+='<td>'+data.noEstacion+'</td>';
+						row+='<td>'+data.folio+'</td>';
+						row+='<td>'+data.fecha+'</td>';
+						row+='<td>'+data.subTotal+'</td>';
+						row+='<td>'+data.iva+'</td>';
+						row+='<td>'+data.total+'</td>';
+						row+='<td>'+'</td>';
+						row+='</tr>';
+						$('#myTable2 tbody').append(row);
+					})
+					break
+				case 2:
+					break
+				case 3:
+					break
 			}
-		});
-	});
+		}
+	}
 </script>
 <script th:src="@{/static/js/sweetalert2.all.min.js}"></script>
 

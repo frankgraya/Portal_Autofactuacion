@@ -12,7 +12,7 @@
             </div>
 
         </div>
-        <div class="form-row" id="esc2">
+        <div class="form-row" id="esc1">
             <div class="form-holder">
                 <label for="fechaTicket">Fecha del ticket*</label>
                 <input type="date" min="2017-01-01" max="2025-12-31" id="fechaTicket" name="fechaTicket" required/>
@@ -25,7 +25,7 @@
             </div>
         </div>
 
-        <button class="form-ayuda" type="button" th:onclick="'javascript:mostrarAyuda()'">
+        <button class="form-ayuda" type="button" th:onclick="'javascript:mostrarAyuda2()'">
             <i class="fa-solid fa-circle-question"></i>
         </button>
         <button class="form-agregar" type="button" th:onclick="'javascript:agregarATabla()'">
@@ -73,8 +73,8 @@
     }
 </style>
 <script>
-    function mostrarAyuda() {
-        if($('#esc2').is(":visible")){
+    function mostrarAyuda2() {
+        if($('#esc1').is(":visible")){
             Swal.fire({
                 title: 'Ticket',
                 text: '',
@@ -95,54 +95,6 @@
         }
     }
     function agregarATabla() {
-        if($('#esc2').is(":visible")){
-            $('#tablaEsc1').show();
-            const estacion = document.getElementById('input-datalist').value
-            const folio = document.getElementById('folioTicket').value
-            const fecha = document.getElementById('fechaTicket').value
-            const webId = document.getElementById('webId').value
-            //console.log("/esc1?NoEstacion=" + estacion.substring(0, 4) + "&Folio=" + folio, "&Fecha=" + fecha, "&WebId=" + webId)
-            $.get("/esc1?NoEstacion=" + estacion.substring(0, 4) + "&Folio=" + folio + "&Fecha=" + fecha + "&WebId=" + webId, function (data) {
-                var row='<tr>';
-                row+='<td>'+data.noEstacion+'</td>';
-                row+='<td>'+data.folio+'</td>';
-                row+='<td>'+data.fecha+'</td>';
-                row+='<td>'+data.webId+'</td>';
-                row+='<td>'+data.subTotal+'</td>';
-                row+='<td>'+data.iva+'</td>';
-                row+='<td>'+data.total+'</td>';
-                row+='<td>'+'</td>';
-                row+='</tr>';
-                $('#myTable1 tbody').append(row);
-            })
-            document.getElementById('folioTicket').value=""
-            document.getElementById('fechaTicket').value=""
-            document.getElementById('webId').value=""
-        } else{
-            $('#tablaEsc2').show();
-            const estacion = document.getElementById('input-datalist').value
-            const folio = document.getElementById('folioTicket').value
-            //$.get("/esc1?NoEstacion=" + estacion.substring(0, 4) + "&Folio=" + folio, "&Fecha=" + fecha, "&WebId=" + webId, function (data) {
-            $.get("/esc2?NoEstacion=" + estacion.substring(0, 4) + "&Folio=" + folio, function (data) {
-                console.log(data.folio)
-                var row='<tr>';
-                row+='<td>'+data.noEstacion+'</td>';
-                row+='<td>'+data.folio+'</td>';
-                row+='<td>'+data.fecha+'</td>';
-                row+='<td>'+data.subTotal+'</td>';
-                row+='<td>'+data.iva+'</td>';
-                row+='<td>'+data.total+'</td>';
-                row+='<td>'+'</td>';
-                row+='</tr>';
-                $('#myTable2 tbody').append(row);
-            })
-        }
-
+        setupEsc(1,0)
     }
-    function agregarLista() {
-
-    }
-
-
-
 </script>
