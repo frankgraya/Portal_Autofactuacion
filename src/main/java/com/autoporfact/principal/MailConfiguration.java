@@ -30,7 +30,7 @@ public class MailConfiguration {
         javaMailProperties.put("mail.smtp.auth", "true");
         javaMailProperties.put("mail.transport.protocol", "smtp");
         javaMailProperties.put("mail.debug", "true");
-        javaMailProperties.put("mail.smtp.ssl.trust", "smtp.mail.icfdi.mx");
+        javaMailProperties.put("mail.smtp.ssl.trust", "mail.icfdi.mx");
         mailSender.setJavaMailProperties(javaMailProperties);
         return mailSender;
     }
