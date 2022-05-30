@@ -1,0 +1,12 @@
+INSERT INTO noestacion  (id,num,nombre,direccion) VALUES (1,6050,'Valero','Nacozari');
+INSERT INTO noestacion  (id,num,nombre,direccion) VALUES (2,6500 ,'Valero','Quinta Avenida');
+INSERT INTO noestacion  (id,num,nombre,direccion) VALUES (3,2584,'Fosell','Ojo Caliente');
+INSERT INTO noestacion  (id,num,nombre,direccion) VALUES (4,4564 ,'Valero','Servicios y Refinados AGS');
+INSERT INTO noestacion  (id,num,nombre,direccion) VALUES (5,8546 ,'Panamericana','Aguascalientes');
+INSERT INTO noestacion  (id,num,nombre,direccion) VALUES (6,1452 ,'Valero','El Arco');
+INSERT INTO noestacion  (id,num,nombre,direccion) VALUES (7,4566 ,'Valero','Dayco');
+INSERT INTO noestacion  (id,num,nombre,direccion) VALUES (8,4788 ,'Teoloyucan','i');
+INSERT INTO noestacion  (id,num,nombre,direccion) VALUES (9,3221  ,'Huehuetoca','i');
+INSERT INTO noestacion  (id,num,nombre,direccion) VALUES (10,4555  ,'Servicio','i');
+
+select * from noestacion

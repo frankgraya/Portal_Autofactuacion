@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml" lang="es" th:fragment="wizard">
+<head>
+	<meta charset="utf-8">
+	<title>Facturación Avalon</title>
+	<!-- Mobile Specific Metas -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<!-- Font-->
+	<link rel="stylesheet" type="text/css" th:href="@{/static/css/raleway-font.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/static/fonts/material-design-iconic-font/css/material-design-iconic-font.min.css}">
+	<!-- Jquery -->
+	<link rel="stylesheet" th:href="@{/static/css/site-demos.css}">
+	<!-- Main Style Css -->
+	<link rel="stylesheet" th:href="@{/static/css/style.css}"/>
+</head>
+<body>
+<section id="hero">
+	<div class="page-content" >
+		<div class="wizard-v1-content">
+			<div class="wizard-form">
+				<form class="form-register" id="form-register" action="#" method="post">
+					<div id="form-total">
+						<!-- SECTION 0 -->
+						<div id="sec0" th:replace="/fragments/step1.html"></div>
+						<!-- SECTION 1 -->
+						<div id="sec1" th:replace="/fragments/step2.html"></div>
+						<!-- SECTION 2 -->
+						<div id="sec2" th:replace="/fragments/step3.html"></div>
+						<!-- SECTION 3 -->
+						<div id="sec3" th:replace="/fragments/step4.html"></div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</section>
+<script th:src="@{/static/js/jquery-3.3.1.min.js}"></script>
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+<script th:src="@{/static/js/jquery.steps.js}"></script>
+<script th:src="@{/static/js/main.js}"></script>
+<script defer src="https://use.fontawesome.com/releases/v6.1.1/js/all.js" integrity="sha384-xBXmu0dk1bEoiwd71wOonQLyH+VpgR1XcDH3rtxrLww5ajNTuMvBdL5SOiFZnNdp" crossorigin="anonymous"></script>
+<script>
+	window.addEventListener("load", function() {
+
+		// create and populate datalist
+		const nameArray = ["6050 Valero Nacozari",
+			"6500 Valero Quinta Avenida",
+			"2584 Fosell Ojo Caliente",
+			"3245 Valero Maestros",
+			"4564 Valero Servicios y Refinados AGS",
+			"8546 Panamericana - Aguascalientes",
+			"1452 Valero El Arco",
+			"4566 Valero Dayco",
+			"4788 Teoloyucan",
+			"3221 Huehuetoca",
+			"4555 Servicio Chiconautla"];
+
+		$.each(nameArray, function(i, item) {
+			$("#listEstaciones").append($("<option>").attr('value', item).text(item));
+		});
+
+	});
+</script>
+<script>
+	$(document).ready(function(){
+		const nameArray = ["6050 Valero Nacozari",
+			"6500 Valero Quinta Avenida",
+			"2584 Fosell Ojo Caliente",
+			"3245 Valero Maestros",
+			"4564 Valero Servicios y Refinados AGS",
+			"8546 Panamericana - Aguascalientes",
+			"1452 Valero El Arco",
+			"4566 Valero Dayco",
+			"4788 Teoloyucan",
+			"3221 Huehuetoca",
+			"4555 Servicio Chiconautla"];
+
+		let rowCount;
+		$('#nextBtn').click(function(){
+			let index = $("#form-total").steps('getCurrentIndex')-1;
+			const estacion = document.getElementById('input-datalist').value
+			//do something
+			console.log(index)
+			stepControl(estacion, index, nameArray, rowCount)
+		});
+	});
+	function stepControl(estacion,index, nameArray, rowCount) {
+		switch (index) {
+			case 0:
+				console.log(estacion)
+				const i = jQuery.inArray(estacion,nameArray)
+				if (i===-1){
+					Swal.fire({
+						icon: 'error',
+						title: 'Oops...',
+						text: 'Seleccione una estación de la lista!',
+						footer: '',
+						allowOutsideClick: false
+					}).then((result) => {
+						if (result.isConfirmed) {
+							location.reload();
+						}
+					})
+					$("#form-total").steps('previous')
+				} else { // FUNCIONALIDAD DE LOS ESCENARIOS
+					if (estacion==="6500 Valero Quinta Avenida"){ // ESCENARIO 2
+						$('#esc1').hide(); //oculto mediante id
+						$('#tablaEsc1').hide();
+						$('#tablaEsc2').hide();
+					} else {
+						$('#tablaEsc2').hide();
+						$('#tablaEsc1').hide();
+					}
+				}
+				console.log(rowCount)
+				setupEsc(index, rowCount)
+				break
+			case 1:
+				break
+			case 2:
+				const email = document.getElementById('emailx').value
+				$.get("/mail?email=" + email + "&estacion=" + estacion);
+				break
+			case 3:
+				break
+		}
+	}
+	function setupEsc(index, rowCount) { // CONFIGURAR ESCENARIO
+		if($('#esc1').is(":visible")){
+			switch (index) { // ACCIONES DEPENDIENDO DEL PASO EN EL QUE NOS ENCONTREMOS
+				case 0:
+					rowCount = $('#myTable1 tr').length-1;
+					if (rowCount>0){
+						document.getElementById('folioTicket').value="dump"
+						document.getElementById('fechaTicket').value="2017-01-01"
+						document.getElementById('webId').value="dump"
+						$("#form-total").steps('next')
+					}
+					break
+				case 1:
+					$('#tablaEsc1').show();
+					const estacion = document.getElementById('input-datalist').value
+					const folio = document.getElementById('folioTicket').value
+					const fecha = document.getElementById('fechaTicket').value
+					const webId = document.getElementById('webId').value
+					$.get("/esc1?NoEstacion=" + estacion.substring(0, 4) + "&Folio=" + folio + "&Fecha=" + fecha + "&WebId=" + webId, function (data) {
+						var row='<tr>';
+						row+='<td>'+data.noEstacion+'</td>';
+						row+='<td>'+data.folio+'</td>';
+						row+='<td>'+data.fecha+'</td>';
+						row+='<td>'+data.webId+'</td>';
+						row+='<td>'+data.subTotal+'</td>';
+						row+='<td>'+data.iva+'</td>';
+						row+='<td>'+data.total+'</td>';
+						row+='<td>'+'</td>';
+						row+='</tr>';
+						$('#myTable1 tbody').append(row);
+					})
+					document.getElementById('folioTicket').value=""
+					document.getElementById('fechaTicket').value=""
+					document.getElementById('webId').value=""
+					break
+				case 2:
+					break
+				case 3:
+					break
+			}
+		} else {
+			switch (index) {
+				case 0:
+					rowCount = $('#myTable2 tr').length - 1;
+					if (rowCount>0){
+						console.log(rowCount)
+						document.getElementById('folioTicket').value="dump"
+						document.getElementById('fechaTicket').value="2017-01-01"
+						document.getElementById('webId').value="dump"
+						$("#form-total").steps('next')
+					}
+					break
+				case 1:
+					$('#tablaEsc2').show();
+					const estacion = document.getElementById('input-datalist').value
+					const folio = document.getElementById('folioTicket').value
+					$.get("/esc2?NoEstacion=" + estacion.substring(0, 4) + "&Folio=" + folio, function (data) {
+						console.log(data.folio)
+						var row='<tr>';
+						row+='<td>'+data.noEstacion+'</td>';
+						row+='<td>'+data.folio+'</td>';
+						row+='<td>'+data.fecha+'</td>';
+						row+='<td>'+data.subTotal+'</td>';
+						row+='<td>'+data.iva+'</td>';
+						row+='<td>'+data.total+'</td>';
+						row+='<td>'+'</td>';
+						row+='</tr>';
+						$('#myTable2 tbody').append(row);
+					})
+					break
+				case 2:
+					break
+				case 3:
+					break
+			}
+		}
+	}
+</script>
+<script th:src="@{/static/js/sweetalert2.all.min.js}"></script>
+
+</body>
+</html>

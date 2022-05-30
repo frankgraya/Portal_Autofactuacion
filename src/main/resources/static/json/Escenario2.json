@@ -1,0 +1,23 @@
+
+
+    "Escenario2": [
+      {
+        "No estacion": 6050,
+        "Folio": 922111,
+        "Fecha": "18/05/2022",
+        "Folio Web": 3326,
+        "subtotal": 302.73,
+        "iva": 47.2,
+        "total": 350
+      },
+      {
+        "No estacion": 6050,
+        "Folio": 164432,
+        "Fecha": "15/05/2022",
+        "Folio Web": "CB33",
+        "subtotal": 999.1,
+        "iva": 156.01,
+        "total": 1155.11
+      },
+    ]
+}
