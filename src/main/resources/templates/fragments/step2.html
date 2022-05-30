@@ -1,0 +1,167 @@
+<h2>
+    <span class="step-icon"><i class="zmdi zmdi-receipt"></i></span>
+    <span class="step-number">Paso 2</span>
+    <span class="step-text">Información del ticket</span>
+</h2>
+<section>
+    <div class="inner">
+        <div class="form-row">
+            <div class="form-holder form-holder-2">
+
+                <div class="row ">
+                    <div class="col">
+                        <label for="folioTicket">Folio*</label>
+                    </div>
+
+                </div>
+                <div class="row ">
+                    <div class="col-sm-11 ">
+                        <input type="text" placeholder="Folio ticket" class="form-control" id="folioTicket" name="folioTicket"  required>
+                    </div>
+                    <div class="col-sm-1  align-self-center">
+                        <i class="fas fa-circle-question fa-beat"  style="font-size:20px;color:white;cursor:hand;" th:onclick="javascript:mostrarAyuda()"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-row" id="esc2">
+            <div class="form-holder">
+                <label for="fechaTicket">Fecha del venta*</label>
+                <input type="date" min="2017-01-01" max="2025-12-31" id="fechaTicket" name="fechaTicket" required/>
+                <!--<input type="text" placeholder="Fecha del ticket" class="form-control" id="password" name="password" required >-->
+            </div>
+            <div class="form-holder">
+                <label for="webId">Folio WEB*</label>
+                <input type="text" placeholder="Folio WEB" class="form-control" id="webId"
+                       name="webId" required>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-holder">
+                <button type="button" class="btn btn-primary active" th:onclick="'javascript:agregarATabla()'">
+                    <i class="fa-solid fa-circle-plus"></i> <span> Agregar ticket</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="form-row" id="tablaEsc2">
+            <table class="table table-primary" id="myTable2">
+                <thead>
+                <tr>
+                    <th scope="col">No estacion</th>
+                    <th scope="col">Folio</th>
+                    <th scope="col">Fecha</th>
+                    <th scope="col">subtotal</th>
+                    <th scope="col">iva</th>
+                    <th scope="col">total</th>
+                    <th scope="col">acciones</th>
+                </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+        <div class="form-row" id="tablaEsc1">
+            <table class="table table-primary" id="myTable1">
+                <thead>
+                <tr>
+                    <th scope="col">No estacion</th>
+                    <th scope="col">Folio</th>
+                    <th scope="col">Fecha</th>
+                    <th scope="col">Folio Web</th>
+                    <th scope="col">subtotal</th>
+                    <th scope="col">iva</th>
+                    <th scope="col">total</th>
+                    <th scope="col">acciones</th>
+                </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+</section>
+<style>
+    .form-ayuda{
+        display:inline-block;
+        height: fit-content;
+    }
+</style>
+<script>
+    function mostrarAyuda() {
+        if($('#esc2').is(":visible")){
+            Swal.fire({
+
+                text: '',
+                imageUrl: '/static/images/Ticketconwebid.png',
+                imageWidth: 264,
+                imageHeight: 462,
+                imageAlt: 'Ticket con webid señalado',
+                showCloseButton: true,
+                showConfirmButton: false,
+                focusClose: true
+            })
+        } else{
+            Swal.fire({
+
+                text: '',
+                imageUrl: '/static/images/Ticketsinwebid.png',
+                imageWidth: 262,
+                imageHeight: 381,
+                imageAlt: 'Ticket sin webid señalado',
+                showCloseButton: true,
+                showConfirmButton: false,
+                focusClose: true
+            })
+        }
+    }
+    function agregarATabla() {
+        if($('#esc2').is(":visible")){
+            $('#tablaEsc1').show();
+            const estacion = document.getElementById('input-datalist').value
+            const folio = document.getElementById('folioTicket').value
+            const fecha = document.getElementById('fechaTicket').value
+            const webId = document.getElementById('webId').value
+            //console.log("/esc1?NoEstacion=" + estacion.substring(0, 4) + "&Folio=" + folio, "&Fecha=" + fecha, "&WebId=" + webId)
+            $.get("/esc1?NoEstacion=" + estacion.substring(0, 4) + "&Folio=" + folio + "&Fecha=" + fecha + "&WebId=" + webId, function (data) {
+                var row='<tr>';
+                row+='<td>'+data.noEstacion+'</td>';
+                row+='<td>'+data.folio+'</td>';
+                row+='<td>'+data.fecha+'</td>';
+                row+='<td>'+data.webId+'</td>';
+                row+='<td>'+data.subTotal+'</td>';
+                row+='<td>'+data.iva+'</td>';
+                row+='<td>'+data.total+'</td>';
+                row+='<td><i class="fa-regular fa-trash-can"></i></td>';
+                row+='</tr>';
+                $('#myTable1 tbody').append(row);
+            })
+            document.getElementById('folioTicket').value=""
+            document.getElementById('fechaTicket').value=""
+            document.getElementById('webId').value=""
+        } else{
+            $('#tablaEsc2').show();
+            const estacion = document.getElementById('input-datalist').value
+            const folio = document.getElementById('folioTicket').value
+            //$.get("/esc1?NoEstacion=" + estacion.substring(0, 4) + "&Folio=" + folio, "&Fecha=" + fecha, "&WebId=" + webId, function (data) {
+            $.get("/esc2?NoEstacion=" + estacion.substring(0, 4) + "&Folio=" + folio, function (data) {
+                console.log(data.folio)
+                var row='<tr>';
+                row+='<td>'+data.noEstacion+'</td>';
+                row+='<td>'+data.folio+'</td>';
+                row+='<td>'+data.fecha+'</td>';
+                row+='<td>'+data.subTotal+'</td>';
+                row+='<td>'+data.iva+'</td>';
+                row+='<td>'+data.total+'</td>';
+                row+='<td><i class="fa-regular fa-trash-can"></i></td>';
+                row+='</tr>';
+                $('#myTable2 tbody').append(row);
+            })
+        }
+
+    }
+    function agregarLista() {
+
+    }
+
+
+
+</script>
