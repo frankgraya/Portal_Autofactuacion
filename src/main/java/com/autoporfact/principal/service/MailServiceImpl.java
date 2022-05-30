@@ -15,6 +15,7 @@ import java.io.UnsupportedEncodingException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class MailServiceImpl implements MailService{
@@ -55,15 +56,13 @@ public class MailServiceImpl implements MailService{
             MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true);
 
             mimeMessageHelper.setSubject(subject);
-            mimeMessageHelper.setFrom(new InternetAddress("dev.mail", "avaloninformatica.es"));
+            mimeMessageHelper.setFrom(new InternetAddress("dev.mail", "Facturación"));
             mimeMessageHelper.setTo(mail.getMailTo());
             mimeMessageHelper.setText(content);
 
             mailSender.send(mimeMessageHelper.getMimeMessage());
 
-        } catch (MessagingException e) {
-            e.printStackTrace();
-        } catch (UnsupportedEncodingException e) {
+        } catch (MessagingException | UnsupportedEncodingException e) {
             e.printStackTrace();
         }
     }
@@ -82,7 +81,7 @@ public class MailServiceImpl implements MailService{
             helper.setText(content, html);
 
             for (FileSystemResource attach: attachments) {
-                helper.addAttachment( attach.getFilename(), attach);
+                helper.addAttachment(Objects.requireNonNull(attach.getFilename()), attach);
             }
 
             mailSender.send(message);
