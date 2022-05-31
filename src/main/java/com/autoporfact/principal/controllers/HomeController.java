@@ -73,31 +73,33 @@ public class HomeController {
     public ResponseEntity<Estacion> esc1(@RequestParam("NoEstacion") long NoEstacion, @RequestParam("Folio") String Folio,
                                          @RequestParam("Fecha") String Fecha, @RequestParam("WebId") String WebId) throws ParseException {
         Estacion estacion = new Estacion();
-        //Formato inicial.
-        SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
-        Date d = formato.parse(Fecha);
-        //Aplica formato requerido.
-        formato.applyPattern("dd/MM/yyyy");
-        Fecha = formato.format(d);
 
-        if (Folio.equals("922111")&&Fecha.equals("18/05/2022")&&WebId.equals("3326")){
-            estacion.setNoEstacion(6050);
-            estacion.setFolio("922111");
-            estacion.setFecha("18/05/2022");
-            estacion.setSubTotal(302.73);
-            estacion.setIva(47.2);
-            estacion.setTotal(350);
-            estacion.setWebId("3326");
-            estacion.setFacturado(false);
-        } else if (Folio.equals("1644432")&&Fecha.equals("15/05/2022")&&WebId.equals("CB33")) {
-            estacion.setNoEstacion(6050);
-            estacion.setFolio("164432");
-            estacion.setFecha("15/05/2022");
-            estacion.setSubTotal(302.73);
-            estacion.setIva(47.27);
-            estacion.setTotal(350);
-            estacion.setWebId("CB33");
-            estacion.setFacturado(false);
+        if (!Folio.isEmpty()&&!Fecha.isEmpty()&&!WebId.isEmpty()){
+            //Formato inicial.
+            SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+            Date d = formato.parse(Fecha);
+            //Aplica formato requerido.
+            formato.applyPattern("dd/MM/yyyy");
+            Fecha = formato.format(d);
+            if (Folio.equals("922111")&&Fecha.equals("18/05/2022")&&WebId.equals("3326")){
+                estacion.setNoEstacion(6050);
+                estacion.setFolio("922111");
+                estacion.setFecha("18/05/2022");
+                estacion.setSubTotal(302.73);
+                estacion.setIva(47.2);
+                estacion.setTotal(350);
+                estacion.setWebId("3326");
+                estacion.setFacturado(false);
+            } else if (Folio.equals("1644432")&&Fecha.equals("15/05/2022")&&WebId.equals("CB33")) {
+                estacion.setNoEstacion(6050);
+                estacion.setFolio("164432");
+                estacion.setFecha("15/05/2022");
+                estacion.setSubTotal(302.73);
+                estacion.setIva(47.27);
+                estacion.setTotal(350);
+                estacion.setWebId("CB33");
+                estacion.setFacturado(false);
+            }
         }
         return new ResponseEntity<>(estacion, HttpStatus.OK);
     }
