@@ -74,7 +74,7 @@ public class MailServiceImpl implements MailService{
             MimeMessageHelper helper = new MimeMessageHelper(message, true);
 
             helper.setSubject(subject);
-            helper.setFrom(new InternetAddress("factura.electronica@icfdi.mx", "avaloninformatica.es"));
+            helper.setFrom(new InternetAddress("factura.electronica@icfdi.mx", "Facturación"));
             helper.setTo(mail.getMailTo());
 
             boolean html = true;

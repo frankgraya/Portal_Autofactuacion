@@ -19,7 +19,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import static com.autoporfact.principal.views.viewRouteHelper.HOME;
@@ -67,9 +70,17 @@ public class HomeController {
     }
 
     @GetMapping({"/esc1"})
-    public ResponseEntity<Estacion> esc1(@RequestParam("NoEstacion") long NoEstacion, @RequestParam("Folio") String Folio, @RequestParam("Fecha") String Fecha, @RequestParam("WebId") String WebId) {
+    public ResponseEntity<Estacion> esc1(@RequestParam("NoEstacion") long NoEstacion, @RequestParam("Folio") String Folio,
+                                         @RequestParam("Fecha") String Fecha, @RequestParam("WebId") String WebId) throws ParseException {
         Estacion estacion = new Estacion();
-        if (Folio.equals("922111")){
+        //Formato inicial.
+        SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+        Date d = formato.parse(Fecha);
+        //Aplica formato requerido.
+        formato.applyPattern("dd/MM/yyyy");
+        Fecha = formato.format(d);
+
+        if (Folio.equals("922111")&&Fecha.equals("18/05/2022")&&WebId.equals("3326")){
             estacion.setNoEstacion(6050);
             estacion.setFolio("922111");
             estacion.setFecha("18/05/2022");
@@ -77,7 +88,8 @@ public class HomeController {
             estacion.setIva(47.2);
             estacion.setTotal(350);
             estacion.setWebId("3326");
-        } else if (Folio.equals("1644432")) {
+            estacion.setFacturado(false);
+        } else if (Folio.equals("1644432")&&Fecha.equals("15/05/2022")&&WebId.equals("CB33")) {
             estacion.setNoEstacion(6050);
             estacion.setFolio("164432");
             estacion.setFecha("15/05/2022");
@@ -85,6 +97,7 @@ public class HomeController {
             estacion.setIva(47.27);
             estacion.setTotal(350);
             estacion.setWebId("CB33");
+            estacion.setFacturado(false);
         }
         return new ResponseEntity<>(estacion, HttpStatus.OK);
     }
@@ -93,24 +106,28 @@ public class HomeController {
     public ResponseEntity<Estacion> esc2(@RequestParam("NoEstacion") long NoEstacion, @RequestParam("Folio") String Folio) {
         //return estacionService.findEscenario2(NoEstacion, Folio);
         Estacion estacion = new Estacion();
-        if (Folio.equals("468892")){
-            estacion.setNoEstacion(6500);
-            estacion.setFolio("468892");
-            estacion.setFecha("12/05/2022");
-            estacion.setSubTotal(345.98);
-            estacion.setIva(54.02);
-            estacion.setTotal(400);
-            estacion.setFacturado(false);
-        } else if(Folio.equals("482747")){
-            estacion.setNoEstacion(6050);
-            estacion.setFolio("482747");
-            estacion.setFecha("20/05/2022");
-            estacion.setSubTotal(302.73);
-            estacion.setIva(47.27);
-            estacion.setTotal(350);
-            estacion.setFacturado(false);
-        } else if (Folio.equals("33232")) {
-            estacion.setFacturado(true);
+        switch (Folio) {
+            case "468892":
+                estacion.setNoEstacion(6500);
+                estacion.setFolio("468892");
+                estacion.setFecha("12/05/2022");
+                estacion.setSubTotal(345.98);
+                estacion.setIva(54.02);
+                estacion.setTotal(400);
+                estacion.setFacturado(false);
+                break;
+            case "482747":
+                estacion.setNoEstacion(6050);
+                estacion.setFolio("482747");
+                estacion.setFecha("20/05/2022");
+                estacion.setSubTotal(302.73);
+                estacion.setIva(47.27);
+                estacion.setTotal(350);
+                estacion.setFacturado(false);
+                break;
+            case "33232":
+                estacion.setFacturado(true);
+                break;
         }
         return new ResponseEntity<>(estacion, HttpStatus.OK);
     }
