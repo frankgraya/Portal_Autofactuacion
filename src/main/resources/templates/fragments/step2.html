@@ -131,17 +131,28 @@
                 row+='<td>'+data.total+'</td>';
                 row+='<td><i class="fa-regular fa-trash-can" style="cursor:hand;"></i></td>';
                 row+='</tr>';
-                if (data.folio === null && data.fecha === null && data.webId === null){
+                console.log(data.facturado)
+                if (!data.facturado){
+                    if (data.folio === null && data.fecha === null && data.webId === null){
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'El FOLIO no existe!',
+                            footer: '',
+                            allowOutsideClick: false
+                        })
+                    } else {
+                        $('#myTable1 tbody').append(row);
+                        $('#tablaEsc1').show();
+                    }
+                } else {
                     Swal.fire({
                         icon: 'error',
                         title: 'Oops...',
-                        text: 'El FOLIO no existe!',
+                        text: 'El FOLIO ya está facturado!',
                         footer: '',
                         allowOutsideClick: false
                     })
-                } else {
-                    $('#myTable1 tbody').append(row);
-                    $('#tablaEsc1').show();
                 }
             })
             document.getElementById('folioTicket').value=""
@@ -162,17 +173,27 @@
                 row+='<td>'+data.total+'</td>';
                 row+='<td><i class="fa-regular fa-trash-can" style="cursor:hand;"></i></td>';
                 row+='</tr>';
-                if (data.folio === null){
+                if (!data.facturado){
+                    if (data.folio === null){
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'El FOLIO no existe!',
+                            footer: '',
+                            allowOutsideClick: false
+                        })
+                    } else {
+                        $('#myTable2 tbody').append(row);
+                        $('#tablaEsc2').show();
+                    }
+                } else {
                     Swal.fire({
                         icon: 'error',
                         title: 'Oops...',
-                        text: 'El FOLIO no existe!',
+                        text: 'El FOLIO ya está facturado!',
                         footer: '',
                         allowOutsideClick: false
                     })
-                } else {
-                    $('#myTable2 tbody').append(row);
-                    $('#tablaEsc2').show();
                 }
             })
         }

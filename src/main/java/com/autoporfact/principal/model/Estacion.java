@@ -40,4 +40,7 @@ public class Estacion implements Serializable {
     @Column(name = "Total", nullable = false)
     private double total;
 
+    @Column(name = "Facturado")
+    private boolean facturado;
+
 }
